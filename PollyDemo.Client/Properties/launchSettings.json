@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PollyDemo.Client": {
+      "commandName": "Project",
+      "commandLineArgs": "cb2 "
+    }
+  }
+}
