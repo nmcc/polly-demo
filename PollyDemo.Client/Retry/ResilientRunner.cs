@@ -6,7 +6,7 @@ namespace PollyDemo.Client.Retry
 {
     class ResilientRunner
     {
-        internal static void Run(int iterations)
+        internal static void Run()
         {
             var apiClient = new ApiClient(Settings.Instance.BaseUrl);
 
@@ -21,7 +21,8 @@ namespace PollyDemo.Client.Retry
                     retryattemp => TimeSpan.FromSeconds(Math.Pow(2, retryattemp)),
                     (exception, retryAgainIn) => Console.WriteLine($" failed --> retrying in {retryAgainIn.TotalSeconds} seconds"));
 
-            for (int i = 0; i < iterations;)
+            var i = 0;
+            while (true)
             {
                 retryPolicy.Execute(() =>
                 {
