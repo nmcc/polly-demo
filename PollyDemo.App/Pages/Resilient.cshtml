@@ -1,0 +1,12 @@
+﻿@page
+@model ResilientModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <h1>@ViewData["Name"]</h1>
+        <p>@DateTime.Now.ToLocalTime().ToLongDateString() @DateTime.Now.ToLocalTime().ToLongTimeString()</p>
+    </div>
+</div>

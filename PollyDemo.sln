@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyDemo.Server", "PollyDemo.Server\PollyDemo.Server.csproj", "{496F17BF-A1C1-4319-BD29-19585999B0D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyDemo.Server", "PollyDemo.Server\PollyDemo.Server.csproj", "{496F17BF-A1C1-4319-BD29-19585999B0D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyDemo.Client", "PollyDemo.Client\PollyDemo.Client.csproj", "{C133512A-6618-4CE7-9989-C26B1DEA7BF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyDemo.Client", "PollyDemo.Client\PollyDemo.Client.csproj", "{C133512A-6618-4CE7-9989-C26B1DEA7BF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyDemo.App", "PollyDemo.App\PollyDemo.App.csproj", "{D2FAD047-0042-4DFD-BEB3-71FB86D6C979}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C133512A-6618-4CE7-9989-C26B1DEA7BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C133512A-6618-4CE7-9989-C26B1DEA7BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C133512A-6618-4CE7-9989-C26B1DEA7BF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2FAD047-0042-4DFD-BEB3-71FB86D6C979}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2FAD047-0042-4DFD-BEB3-71FB86D6C979}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2FAD047-0042-4DFD-BEB3-71FB86D6C979}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2FAD047-0042-4DFD-BEB3-71FB86D6C979}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
