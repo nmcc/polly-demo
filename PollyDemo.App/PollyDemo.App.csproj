@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Pages\Naive.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Pages\Resilient.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

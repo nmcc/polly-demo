@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace PollyDemo.App.CircuitBreaker
 {
@@ -13,7 +14,10 @@ namespace PollyDemo.App.CircuitBreaker
         {
             this.baseUrl = configurationRoot.GetSection("Server:BaseUrl").Value;
 
-            this.httpClient = new HttpClient();
+            this.httpClient = new HttpClient
+            {
+                Timeout = TimeSpan.FromSeconds(1)
+            };
         }
 
         public void Dispose()
@@ -21,7 +25,7 @@ namespace PollyDemo.App.CircuitBreaker
             this.httpClient.Dispose();
         }
 
-        public string SayHello(string name) 
-            => httpClient.GetStringAsync($"{this.baseUrl}api/circuitbreaker/{name}").Result;
+        public async Task<byte[]> GetAvatarAsync(string name) 
+            => await httpClient.GetByteArrayAsync($"{this.baseUrl}api/avatar/{name}");
     }
 }

@@ -4,11 +4,11 @@ using System;
 
 namespace PollyDemo.App.Pages
 {
-    public class ResilientModel : PageModel
+    public class NaiveModel : PageModel
     {
-        private readonly ResilientApiClient apiClient;
+        private readonly ApiClient apiClient;
 
-        public ResilientModel(ResilientApiClient apiClient)
+        public NaiveModel(ApiClient apiClient)
         {
             this.apiClient = apiClient;
         }
@@ -16,12 +16,12 @@ namespace PollyDemo.App.Pages
         public void OnGet()
         {
             var nameFromQuery = Request.Query["name"].ToArray();
-            var name = nameFromQuery.Length > 0 ? nameFromQuery[0] : "NetPonto";
-
+            var name =  nameFromQuery.Length > 0 ? nameFromQuery[0] : "NetPonto";
+            
             this.ViewData.Add("Name", name);
 
             var avatarImage = this.apiClient.GetAvatarAsync(name).Result;
             this.ViewData.Add("AvatarBase64", Convert.ToBase64String(avatarImage));
         }
-    }
+}
 }

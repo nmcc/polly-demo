@@ -2,9 +2,10 @@
 using Polly;
 using Polly.Caching.Memory;
 using Polly.CircuitBreaker;
-using Polly.Wrap;
 using System;
+using System.IO;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace PollyDemo.App.CircuitBreaker
 {
@@ -12,7 +13,10 @@ namespace PollyDemo.App.CircuitBreaker
     {
         private readonly ApiClient apiClient;
         private readonly ILogger logger;
-        private readonly Policy<string> sayHelloPolicy;
+        private readonly Policy<byte[]> sayHelloPolicy;
+
+        private static readonly Lazy<byte[]> defaultAvatarImage =
+            new Lazy<byte[]>(() => File.ReadAllBytes("fallback.png"));
 
         public ResilientApiClient(ApiClient apiClient, MemoryCacheProvider memoryCacheProvider, ILogger<ResilientApiClient> logger)
         {
@@ -21,18 +25,20 @@ namespace PollyDemo.App.CircuitBreaker
 
             var circuitBreaker = Policy
                 .HandleInner<HttpRequestException>()
-                .CircuitBreaker(
+                .OrInner<TaskCanceledException>()
+                .CircuitBreakerAsync(
                     exceptionsAllowedBeforeBreaking: 3,
                     durationOfBreak: TimeSpan.FromSeconds(5),
                     onBreak: (exception, retryIn) => OnBreak(retryIn),
                     onReset: () => OnReset());
 
-            var sayHelloFallback = Policy<string>
+            var getAvatarPolicy = Policy<byte[]>
                 .Handle<BrokenCircuitException>()
                 .OrInner<HttpRequestException>()
-                .Fallback("FALLBACK");
+                .OrInner<TaskCanceledException>()
+                .FallbackAsync(defaultAvatarImage.Value);
 
-            this.sayHelloPolicy = sayHelloFallback.Wrap(circuitBreaker);
+            this.sayHelloPolicy = getAvatarPolicy.WrapAsync(circuitBreaker);
         }
 
         private void OnBreak(TimeSpan retryIn)
@@ -46,6 +52,7 @@ namespace PollyDemo.App.CircuitBreaker
             this.apiClient.Dispose();
         }
 
-        public string SayHello(string name) => sayHelloPolicy.Execute(() => apiClient.SayHello(name));
+        public async Task<byte[]> GetAvatarAsync(string name)
+            => await sayHelloPolicy.ExecuteAsync(() => apiClient.GetAvatarAsync(name));
     }
 }
