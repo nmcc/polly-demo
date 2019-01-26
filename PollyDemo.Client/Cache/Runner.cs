@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace PollyDemo.Client.Retry
+namespace PollyDemo.Client.Cache
 {
     static class Runner
     {
@@ -10,9 +10,13 @@ namespace PollyDemo.Client.Retry
             var apiClient = new ApiClient(Settings.Instance.BaseUrl);
 
             var i = 0;
+            const string name = "NetPonto";
+
             while (true)
             {
-                string message = apiClient.SayHello("NetPonto", ++i);
+                i++;
+
+                var message = apiClient.SayHello(name);
                 Console.WriteLine($"[{i:00}] server said \"{message}\"");
 
                 Thread.Sleep(1000);

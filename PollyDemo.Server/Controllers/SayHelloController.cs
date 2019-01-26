@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace PollyDemo.Server.Controllers
 {
     [ApiController]
-    [Route("/api/circuitbreaker")]
-    public class CircuitBreakerController : ControllerBase
+    [Route("api/[controller]")]
+    public class SayHelloController : ControllerBase
     {
         private static bool throwError;
 
@@ -16,7 +16,7 @@ namespace PollyDemo.Server.Controllers
         public ActionResult<string> SayHello(string from)
         {
             if (throwError)
-                throw new ApplicationException("Throwing errors just because");
+                return new StatusCodeResult(500);
 
             return $"Hello {from}";
         }

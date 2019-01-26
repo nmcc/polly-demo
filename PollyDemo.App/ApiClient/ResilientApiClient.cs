@@ -28,7 +28,7 @@ namespace PollyDemo.App.CircuitBreaker
                 .OrInner<TaskCanceledException>()
                 .CircuitBreakerAsync(
                     exceptionsAllowedBeforeBreaking: 3,
-                    durationOfBreak: TimeSpan.FromSeconds(5),
+                    durationOfBreak: TimeSpan.FromSeconds(10),
                     onBreak: (exception, retryIn) => OnBreak(retryIn),
                     onReset: () => OnReset());
 

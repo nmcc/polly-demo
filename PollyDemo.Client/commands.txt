@@ -1,0 +1,5 @@
+/***** Circuit breaker ******/
+
+// switch error mode
+curl -X POST http://localhost:5000/api/sayhello -d ""
+

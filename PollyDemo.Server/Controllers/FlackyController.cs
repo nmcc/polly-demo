@@ -6,14 +6,15 @@ namespace PollyDemo.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RetryController : ControllerBase
+    public class FlackyController : ControllerBase
     {
         [HttpGet("{from}")]
         public ActionResult<string> SayHello(string from, [FromQuery] int counter)
         {
+            // Introduce flakyness 
             if (counter % 5 == 3 || counter % 5 == 4)
             {
-                throw new ApplicationException("Refuse to return a result every 3rd and 4th request");
+                throw new ApplicationException("I refuse to attend this request");
             }
 
             return $"Hello {from}";

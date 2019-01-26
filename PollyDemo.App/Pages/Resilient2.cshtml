@@ -1,0 +1,15 @@
+﻿@page
+@model Resilient2Model
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <h1>@ViewData["Name"]</h1>
+
+        @{ var avatarsrc = "data:image/png;base64," + ViewData["AvatarBase64"];}
+        <img src="@avatarsrc">
+        <p>@DateTime.Now.ToLocalTime().ToLongDateString() @DateTime.Now.ToLocalTime().ToLongTimeString()</p>
+    </div>
+</div>

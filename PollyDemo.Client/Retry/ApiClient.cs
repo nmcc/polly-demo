@@ -21,6 +21,6 @@ namespace PollyDemo.Client.Retry
         }
 
         public string SayHello(string name, int counter) 
-            => httpClient.GetStringAsync($"{this.baseUrl}api/retry/{name}?counter={counter}").Result;
+            => httpClient.GetStringAsync($"{this.baseUrl}api/flacky/{name}?counter={counter}").Result;
     }
 }

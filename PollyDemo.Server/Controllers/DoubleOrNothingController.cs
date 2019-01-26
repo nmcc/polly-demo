@@ -4,7 +4,7 @@ namespace PollyDemo.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FallbackController : ControllerBase
+    public class DoubleOrNothingController : ControllerBase
     {
         [HttpGet("{number}")]
         public ActionResult<int> DoubleOrNothing(int number)

@@ -20,6 +20,6 @@ namespace PollyDemo.Client.Fallback
         }
 
         public int DoubleOrNothing(int number) 
-            => Convert.ToInt32(httpClient.GetStringAsync($"{this.baseUrl}api/fallback/{number}").Result);
+            => Convert.ToInt32(httpClient.GetStringAsync($"{this.baseUrl}api/doubleornothing/{number}").Result);
     }
 }

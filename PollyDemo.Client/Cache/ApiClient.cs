@@ -20,6 +20,6 @@ namespace PollyDemo.Client.Cache
         }
 
         public string SayHello(string name) 
-            => httpClient.GetStringAsync($"{this.baseUrl}api/circuitbreaker/{name}").Result;
+            => httpClient.GetStringAsync($"{this.baseUrl}api/sayhello/{name}").Result;
     }
 }

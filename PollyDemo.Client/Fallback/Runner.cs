@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace PollyDemo.Client.Retry
+namespace PollyDemo.Client.Fallback
 {
     static class Runner
     {
@@ -12,8 +12,8 @@ namespace PollyDemo.Client.Retry
             var i = 0;
             while (true)
             {
-                string message = apiClient.SayHello("NetPonto", ++i);
-                Console.WriteLine($"[{i:00}] server said \"{message}\"");
+                var doubleOrNothing = apiClient.DoubleOrNothing(++i);
+                Console.WriteLine($"Double or nothing of {i} is {doubleOrNothing}");
 
                 Thread.Sleep(1000);
             }

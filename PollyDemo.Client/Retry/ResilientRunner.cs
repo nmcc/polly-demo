@@ -1,6 +1,7 @@
 ﻿using Polly;
 using System;
 using System.Net.Http;
+using System.Threading;
 
 namespace PollyDemo.Client.Retry
 {
@@ -26,9 +27,12 @@ namespace PollyDemo.Client.Retry
             {
                 retryPolicy.Execute(() =>
                 {
+                    i++;
                     Console.Write($"[{i:00}]");
-                    string message = apiClient.SayHello("NetPonto", i++);
+                    string message = apiClient.SayHello("NetPonto", i);
                     Console.WriteLine($"server said \"{message}\"");
+
+                    Thread.Sleep(1000);
                 });
             }
         }

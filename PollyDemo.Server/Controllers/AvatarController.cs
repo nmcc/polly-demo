@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Drawing;
 using System.Threading;
 
@@ -13,10 +12,10 @@ namespace PollyDemo.Server.Controllers
         private static int? delaySeconds;
 
         [HttpGet("{username}")]
-        public FileContentResult GetAvatar(string username)
+        public IActionResult GetAvatar(string username)
         {
             if (throwError)
-                throw new ApplicationException("Whoops");
+                return StatusCode(500);
 
             if (delaySeconds.HasValue)
                 Thread.Sleep(delaySeconds.Value * 1000);

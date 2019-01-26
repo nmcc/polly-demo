@@ -1,0 +1,8 @@
+/*************** App Demo ******************/
+
+// Switch error mode
+curl -X POST http://localhost:5000/api/avatar/error -d ""
+
+// Switch delay mode
+curl -X POST http://localhost:5000/api/avatar/delay -d ""
+ 

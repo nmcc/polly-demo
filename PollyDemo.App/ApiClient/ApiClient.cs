@@ -7,25 +7,31 @@ namespace PollyDemo.App.CircuitBreaker
 {
     public class ApiClient : IDisposable
     {
-        private readonly string baseUrl;
         private readonly HttpClient httpClient;
+
+        /* Parameterless ctor is here for the scenario 
+         * where this ApiClient is used within Polly's 
+         * Http client extensions: Polly.Extensions.Http
+         */
+        public ApiClient()
+        {
+        }
 
         public ApiClient(IConfiguration configurationRoot)
         {
-            this.baseUrl = configurationRoot.GetSection("Server:BaseUrl").Value;
+            this.BaseUrl = configurationRoot.GetSection("Server:BaseUrl").Value;
 
-            this.httpClient = new HttpClient
-            {
-                Timeout = TimeSpan.FromSeconds(1)
-            };
+            this.httpClient = new HttpClient();
+
+            // Uncomment to set a timeout on the HttpClient class
+            //this.httpClient.Timeout = TimeSpan.FromSeconds(1);
         }
 
-        public void Dispose()
-        {
-            this.httpClient.Dispose();
-        }
+        public string BaseUrl { get; set; }
 
-        public async Task<byte[]> GetAvatarAsync(string name) 
-            => await httpClient.GetByteArrayAsync($"{this.baseUrl}api/avatar/{name}");
+        public void Dispose() => this.httpClient.Dispose();
+
+        public async Task<byte[]> GetAvatarAsync(string name)
+            => await httpClient.GetByteArrayAsync($"{this.BaseUrl}api/avatar/{name}");
     }
 }

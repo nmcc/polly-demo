@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace PollyDemo.Client.Fallback
 {
-    class ResilientRunner
+    static class ResilientRunner
     {
         internal static void Run()
         {

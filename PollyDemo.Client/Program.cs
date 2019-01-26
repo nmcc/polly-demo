@@ -29,11 +29,23 @@ namespace PollyDemo.Client
             }
             else if (string.Equals(args[0], "fallback", StringComparison.InvariantCultureIgnoreCase))
             {
+                Fallback.Runner.Run();
+            }
+            else if (string.Equals(args[0], "fallback2", StringComparison.InvariantCultureIgnoreCase))
+            {
                 Fallback.ResilientRunner.Run();
             }
             else if (string.Equals(args[0], "cache", StringComparison.InvariantCultureIgnoreCase))
             {
+                Cache.Runner.Run();
+            }
+            else if (string.Equals(args[0], "cache2", StringComparison.InvariantCultureIgnoreCase))
+            {
                 Cache.ResilientRunner.Run();
+            }
+            else
+            {
+                Console.WriteLine("Nothing to run");
             }
         }
 
@@ -44,7 +56,7 @@ namespace PollyDemo.Client
                 PrintUsageAndExit("Missing command");
             }
 
-            var commandRegex = new Regex("retry2?|cb2?|fallback|cache");
+            var commandRegex = new Regex("retry2?|cb2?|fallback2?|cache2?");
 
             if (!commandRegex.IsMatch(args[0]))
             {
