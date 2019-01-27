@@ -20,7 +20,7 @@ namespace PollyDemo.Client.CircuitBreaker
             this.httpClient.Dispose();
         }
 
-        public string SayHello(string name) 
-            => httpClient.GetStringAsync($"{this.baseUrl}api/sayhello/{name}").Result;
+        public async Task<string> SayHelloAsync(string name) 
+            => await httpClient.GetStringAsync($"{this.baseUrl}api/sayhello/{name}");
     }
 }

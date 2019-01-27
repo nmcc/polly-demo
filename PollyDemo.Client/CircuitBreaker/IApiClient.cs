@@ -1,7 +1,9 @@
-﻿namespace PollyDemo.Client.CircuitBreaker
+﻿using System.Threading.Tasks;
+
+namespace PollyDemo.Client.CircuitBreaker
 {
     interface IApiClient
     {
-        string SayHello(string name);
+        Task<string> SayHelloAsync(string name);
     }
 }

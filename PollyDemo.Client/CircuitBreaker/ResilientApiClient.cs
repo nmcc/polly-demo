@@ -2,6 +2,7 @@
 using Polly.CircuitBreaker;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace PollyDemo.Client.CircuitBreaker
 {
@@ -16,7 +17,7 @@ namespace PollyDemo.Client.CircuitBreaker
             this.apiClient = new ApiClient(baseUrl);
 
             this.circuitBreaker = Policy
-                .HandleInner<HttpRequestException>()
+                .Handle<HttpRequestException>()
                 .CircuitBreaker(
                     exceptionsAllowedBeforeBreaking: 3,
                     durationOfBreak: TimeSpan.FromSeconds(5),
@@ -35,6 +36,6 @@ namespace PollyDemo.Client.CircuitBreaker
             this.apiClient.Dispose();
         }
 
-        public string SayHello(string name) => circuitBreaker.Execute(() => apiClient.SayHello(name));
+        public Task<string> SayHelloAsync(string name) => circuitBreaker.ExecuteAsync(async () => await apiClient.SayHelloAsync(name));
     }
 }
