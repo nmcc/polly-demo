@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyDemo.Server", "PollyDemo.Server\PollyDemo.Server.csproj", "{496F17BF-A1C1-4319-BD29-19585999B0D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "web-api", "web-api\web-api.csproj", "{496F17BF-A1C1-4319-BD29-19585999B0D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyDemo.Client", "PollyDemo.Client\PollyDemo.Client.csproj", "{C133512A-6618-4CE7-9989-C26B1DEA7BF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "client-cli", "client-cli\client-cli.csproj", "{C133512A-6618-4CE7-9989-C26B1DEA7BF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyDemo.App", "PollyDemo.App\PollyDemo.App.csproj", "{D2FAD047-0042-4DFD-BEB3-71FB86D6C979}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-app", "web-app\web-app.csproj", "{D2FAD047-0042-4DFD-BEB3-71FB86D6C979}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
