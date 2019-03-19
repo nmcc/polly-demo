@@ -32,13 +32,13 @@ namespace PollyDemo.App.CircuitBreaker
         public void Dispose() => this.httpClient.Dispose();
 
         public async Task<byte[]> GetAvatarAsync(string name)
-            => await httpClient.GetByteArrayAsync($"{this.BaseUrl}api/avatar/{name}");
+            => await httpClient.GetByteArrayAsync($"{this.BaseUrl}/api/avatar/{name}");
 
         public bool IsHealthy()
         {
             try
             {
-                var s = httpClient.GetStringAsync($"{this.BaseUrl}api/health").Result;
+                var s = httpClient.GetStringAsync($"{this.BaseUrl}/api/health").Result;
                 return true;
             }
             catch
