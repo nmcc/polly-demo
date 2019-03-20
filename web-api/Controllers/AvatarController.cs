@@ -53,7 +53,7 @@ namespace PollyDemo.Server.Controllers
         [Route("delay")]
         public ActionResult<string> SwitchDelayMode()
         {
-            const int defaultDelay = 10;
+            const int defaultDelay = 5;
             delaySeconds = delaySeconds.HasValue ? (int?)null : defaultDelay;
             return string.Format(
                 "Endpoint is {0}",
