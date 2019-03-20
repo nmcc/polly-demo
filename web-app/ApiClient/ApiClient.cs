@@ -9,8 +9,7 @@ namespace PollyDemo.App.CircuitBreaker
     {
         private readonly HttpClient httpClient;
 
-        /* Parameterless ctor is here for the scenario 
-         * where this ApiClient is used within Polly's 
+        /* Parameterless ctor is here for the scenario  where this ApiClient is used within Polly's 
          * Http client extensions: Polly.Extensions.Http
          */
         public ApiClient()
