@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using Polly;
-using Polly.Caching.Memory;
 using Polly.CircuitBreaker;
 using System;
 using System.IO;
@@ -13,12 +12,12 @@ namespace PollyDemo.App.CircuitBreaker
     {
         private readonly ApiClient apiClient;
         private readonly ILogger logger;
-        private readonly Policy<byte[]> sayHelloPolicy;
+        private readonly Policy<byte[]> combinedPolicy;
 
         private static readonly Lazy<byte[]> defaultAvatarImage =
             new Lazy<byte[]>(() => File.ReadAllBytes("fallback.png"));
 
-        public ResilientApiClient(ApiClient apiClient, MemoryCacheProvider memoryCacheProvider, ILogger<ResilientApiClient> logger)
+        public ResilientApiClient(ApiClient apiClient, ILogger<ResilientApiClient> logger)
         {
             this.apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -32,13 +31,13 @@ namespace PollyDemo.App.CircuitBreaker
                     onBreak: (exception, retryIn) => OnBreak(retryIn),
                     onReset: () => OnReset());
 
-            var getAvatarPolicy = Policy<byte[]>
+            var fallbackPolicy = Policy<byte[]>
                 .Handle<BrokenCircuitException>()
                 .OrInner<HttpRequestException>()
                 .OrInner<TaskCanceledException>()
                 .FallbackAsync(defaultAvatarImage.Value);
 
-            this.sayHelloPolicy = getAvatarPolicy.WrapAsync(circuitBreaker);
+            this.combinedPolicy = fallbackPolicy.WrapAsync(circuitBreaker);
         }
 
         private void OnBreak(TimeSpan retryIn)
@@ -47,12 +46,9 @@ namespace PollyDemo.App.CircuitBreaker
         private void OnReset()
             => logger.LogWarning("Connection is restablished");
 
-        public void Dispose()
-        {
-            this.apiClient.Dispose();
-        }
+        public void Dispose() => this.apiClient.Dispose();
 
         public async Task<byte[]> GetAvatarAsync(string name)
-            => await sayHelloPolicy.ExecuteAsync(() => apiClient.GetAvatarAsync(name));
+            => await combinedPolicy.ExecuteAsync(() => apiClient.GetAvatarAsync(name));
     }
 }

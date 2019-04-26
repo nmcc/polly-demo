@@ -9,8 +9,7 @@ namespace PollyDemo.App.CircuitBreaker
     {
         private readonly HttpClient httpClient;
 
-        /* Parameterless ctor is here for the scenario 
-         * where this ApiClient is used within Polly's 
+        /* Parameterless ctor is here for the scenario  where this ApiClient is used within Polly's 
          * Http client extensions: Polly.Extensions.Http
          */
         public ApiClient()
@@ -32,6 +31,19 @@ namespace PollyDemo.App.CircuitBreaker
         public void Dispose() => this.httpClient.Dispose();
 
         public async Task<byte[]> GetAvatarAsync(string name)
-            => await httpClient.GetByteArrayAsync($"{this.BaseUrl}api/avatar/{name}");
+            => await httpClient.GetByteArrayAsync($"{this.BaseUrl}/api/avatar/{name}");
+
+        public bool IsHealthy()
+        {
+            try
+            {
+                var s = httpClient.GetStringAsync($"{this.BaseUrl}/api/health").Result;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

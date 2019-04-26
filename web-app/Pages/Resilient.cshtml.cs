@@ -16,7 +16,7 @@ namespace PollyDemo.App.Pages
         public void OnGet()
         {
             var nameFromQuery = Request.Query["name"].ToArray();
-            var name = nameFromQuery.Length > 0 ? nameFromQuery[0] : "NetPonto";
+            var name = nameFromQuery.Length > 0 ? nameFromQuery[0] : Constants.DefaultUser;
 
             this.ViewData.Add("Name", name);
 

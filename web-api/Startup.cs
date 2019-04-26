@@ -25,6 +25,10 @@ namespace PollyDemo.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSingleton<Avatar.AssetAvatarProvider>();
+            services.AddSingleton<Avatar.ShortnameImageAvatarProvider>();
+            services.AddSingleton<Avatar.IAvatarProvider, Avatar.AvatarProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
