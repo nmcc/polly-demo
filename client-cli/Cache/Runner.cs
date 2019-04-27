@@ -10,7 +10,7 @@ namespace PollyDemo.Client.Cache
             var apiClient = new ApiClient(Settings.Instance.BaseUrl);
 
             var i = 0;
-            const string name = "NetPonto";
+            const string name = "Global Azure Bootcamp";
 
             while (true)
             {

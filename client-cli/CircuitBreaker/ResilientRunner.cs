@@ -21,7 +21,7 @@ namespace PollyDemo.Client.CircuitBreaker
                 try
                 {
                     Console.Write($"[{i:00}] ");
-                    string message = apiClient.SayHello("NetPonto");
+                    string message = apiClient.SayHello("Global Azure Bootcamp");
                     Console.WriteLine($"server said \"{message}\"");
                 }
                 catch (BrokenCircuitException)

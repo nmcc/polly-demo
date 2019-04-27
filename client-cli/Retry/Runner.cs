@@ -12,7 +12,7 @@ namespace PollyDemo.Client.Retry
             var i = 0;
             while (true)
             {
-                string message = apiClient.SayHello("NetPonto", ++i);
+                string message = apiClient.SayHello("Global Azure Bootcamp", ++i);
                 Console.WriteLine($"[{i:00}] server said \"{message}\"");
 
                 Thread.Sleep(1000);
