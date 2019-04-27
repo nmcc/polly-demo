@@ -12,7 +12,7 @@ namespace PollyDemo.Server.Controllers
         public ActionResult<string> SayHello(string from, [FromQuery] int counter)
         {
             // Introduce flakyness 
-            if (counter % 5 == 3 || counter % 5 == 4)
+            if (counter % 6 >= 3)
             {
                 throw new ApplicationException("I refuse to attend this request");
             }
