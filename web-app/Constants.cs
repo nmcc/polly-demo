@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public const string DefaultUser = "Global Azure Bootcamp 2019";
+        public const string DefaultUser = "gab2019";
     }
 }
