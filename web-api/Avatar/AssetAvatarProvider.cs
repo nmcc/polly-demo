@@ -6,12 +6,18 @@ namespace PollyDemo.Server.Avatar
     {
         public Stream GetAvatarForUsername(string username)
         {
-            var filename = Path.Combine("assets", BuildFilename(username) + ".jpg");
-            if (File.Exists(filename))
+            var jpgFile = Path.Combine("assets", BuildFilename(username) + ".jpg");
+            if (File.Exists(jpgFile))
             {
-                return File.OpenRead(filename);
+                return File.OpenRead(jpgFile);
             }
 
+            var pngFile = Path.Combine("assets", BuildFilename(username) + ".png");
+            if (File.Exists(pngFile))
+            {
+                return File.OpenRead(pngFile);
+            }
+            
             return Stream.Null;
         }
 
