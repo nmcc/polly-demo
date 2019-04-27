@@ -12,7 +12,9 @@ namespace PollyDemo.Client.Fallback
             var i = 0;
             while (true)
             {
-                var doubleOrNothing = apiClient.DoubleOrNothing(++i);
+                ++i;
+                
+                var doubleOrNothing = apiClient.DoubleOrNothing(i);
                 Console.WriteLine($"Double or nothing of {i} is {doubleOrNothing}");
 
                 Thread.Sleep(1000);

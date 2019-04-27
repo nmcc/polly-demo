@@ -1,5 +1,6 @@
 ﻿using Polly;
 using System;
+using System.Net.Http;
 using System.Threading;
 
 namespace PollyDemo.Client.Fallback
@@ -9,9 +10,12 @@ namespace PollyDemo.Client.Fallback
         internal static void Run()
         {
             var apiClient = new ApiClient(Settings.Instance.BaseUrl);
+            
             var fallbackPolicy = Policy
                 .HandleResult(0)
+                .Or<HttpRequestException>()
                 .Fallback(()  => throw new ApplicationException("Got nothing!"));
+                // .Fallback(()  => -1);
 
             var i = 0;
 
