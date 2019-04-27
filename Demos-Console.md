@@ -62,6 +62,12 @@ $ cd client-cli
 # Run the non-cached client
 $ dotnet run cache
 
+# Set the endpoint to emit errors
+$ curl -X POST -d "" http://localhost:5000/api/sayhello
+
+# Run the non-cached client again
+$ dotnet run cache
+
 # Run the cached client
 $ dotnet run cache2
 ```
