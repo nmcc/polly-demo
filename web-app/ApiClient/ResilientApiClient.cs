@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PollyDemo.App.CircuitBreaker
 {
-    public class ResilientApiClient : IDisposable
+    public class ResilientApiClient : IApiClient
     {
         private readonly ApiClient apiClient;
         private readonly ILogger logger;
@@ -17,12 +17,14 @@ namespace PollyDemo.App.CircuitBreaker
         private static readonly Lazy<byte[]> defaultAvatarImage =
             new Lazy<byte[]>(() => File.ReadAllBytes("fallback.png"));
 
+        private readonly CircuitBreakerPolicy circuitBreaker;
+
         public ResilientApiClient(ApiClient apiClient, ILogger<ResilientApiClient> logger)
         {
             this.apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            var circuitBreaker = Policy
+            this.circuitBreaker = Policy
                 .HandleInner<HttpRequestException>()
                 .OrInner<TaskCanceledException>()
                 .CircuitBreakerAsync(
@@ -50,5 +52,16 @@ namespace PollyDemo.App.CircuitBreaker
 
         public async Task<byte[]> GetAvatarAsync(string name)
             => await combinedPolicy.ExecuteAsync(() => apiClient.GetAvatarAsync(name));
+
+
+        public string BaseUrl
+        {
+            get => this.apiClient.BaseUrl;
+            set => this.apiClient.BaseUrl = value;
+        }
+
+        public bool IsCircuitClosed => this.circuitBreaker.CircuitState == CircuitState.Closed;
+
+        public bool IsHealthy => this.apiClient.IsHealthy;
     }
 }

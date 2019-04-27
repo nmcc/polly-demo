@@ -12,9 +12,9 @@ namespace web_app.Controllers
     [ApiController]
     public class HealthController : ControllerBase
     {
-        private readonly PollyDemo.App.CircuitBreaker.ApiClient apiClient;
+        private readonly PollyDemo.App.CircuitBreaker.ResilientApiClient apiClient;
 
-        public HealthController(ApiClient apiClient)
+        public HealthController(ResilientApiClient apiClient)
         {
             this.apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         }
@@ -30,7 +30,11 @@ namespace web_app.Controllers
             // no deps
             var result = new
             {
-                WebApi = apiClient.IsHealthy()
+                WebApi = new 
+                { 
+                    Healthy= apiClient.IsHealthy,
+                    CircuitClosed = apiClient.IsCircuitClosed
+                }
             };
             return new JsonResult(result);
         }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PollyDemo.App.CircuitBreaker
 {
-    public class ApiClient : IDisposable
+    public class ApiClient : IApiClient
     {
         private readonly HttpClient httpClient;
 
@@ -33,17 +33,23 @@ namespace PollyDemo.App.CircuitBreaker
         public async Task<byte[]> GetAvatarAsync(string name)
             => await httpClient.GetByteArrayAsync($"{this.BaseUrl}/api/avatar/{name}");
 
-        public bool IsHealthy()
+        public bool IsHealthy
         {
-            try
+            get
             {
-                var s = httpClient.GetStringAsync($"{this.BaseUrl}/api/health").Result;
-                return true;
-            }
-            catch
-            {
-                return false;
+                try
+                {
+                    var s = httpClient.GetStringAsync($"{this.BaseUrl}/api/health").Result;
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
+
+        public bool IsCircuitClosed
+            => throw new NotImplementedException("Non-resilient client does not support Circuit breaker");
     }
 }
