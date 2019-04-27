@@ -7,6 +7,8 @@ namespace PollyDemo.Client.Fallback
 {
     static class ResilientRunner
     {
+        private const int DEFAULT_NOTHING = -1;
+
         internal static void Run()
         {
             var apiClient = new ApiClient(Settings.Instance.BaseUrl);
@@ -15,7 +17,7 @@ namespace PollyDemo.Client.Fallback
                 .HandleResult(0)
                 .Or<HttpRequestException>()
                 .Fallback(()  => throw new ApplicationException("Got nothing!"));
-                // .Fallback(()  => -1);
+                // .Fallback(()  => DEFAULT_NOTHING);
 
             var i = 0;
 
