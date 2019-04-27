@@ -13,7 +13,7 @@ namespace PollyDemo.Client.Cache
             var apiClient = new ApiClient(Settings.Instance.BaseUrl);
 
             var memoryCacheProvider = new MemoryCacheProvider(new MemoryCache(new MemoryCacheOptions()));
-            var cachePolicy = Policy.Cache(memoryCacheProvider, TimeSpan.FromSeconds(5));
+            var cachePolicy = Policy.Cache(memoryCacheProvider, TimeSpan.FromSeconds(10));
 
             var i = 0;
 
